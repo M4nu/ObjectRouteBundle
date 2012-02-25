@@ -12,7 +12,7 @@ This Symfony2 bundle allows to create routes from an object instead of parameter
 ```
 [M4nuObjectRouteBundle]
     git=git://github.com/M4nu/M4nuObjectRouteBundle.git
-    target=/bundles/M4nu/M4nuObjectRouteBundle
+    target=/bundles/M4nu/ObjectRouteBundle
 ```
 
 ##Add autoloading
