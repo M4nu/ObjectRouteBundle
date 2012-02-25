@@ -43,7 +43,7 @@ php bin/vendors install
 
 #Examples
 
-Let's say we have a Category and a Message  :
+Let's say we have a Category and a Message object :
 
 ```php
 $category = new Category();
@@ -54,7 +54,7 @@ $message->setSlug('my-message');
 $message->setCategory($category);
 ```
 
-And the corresponding list route :
+And the corresponding route :
 
 ```yaml
 message_show:
