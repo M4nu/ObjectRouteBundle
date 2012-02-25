@@ -3,6 +3,8 @@ M4nuObjectRouteBundle
 
 This Symfony2 bundle allows to create routes from an object instead of parameters.
 
+[![Build Status](https://secure.travis-ci.org/M4nu/M4nuObjectRouteBundle.png)](http://travis-ci.org/M4nu/M4nuObjectRouteBundle)
+
 #How to install ?
 
 ##Add theses lines into your deps
