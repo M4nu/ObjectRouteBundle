@@ -40,3 +40,46 @@ $bundles = array(
 ```shell
 php bin/vendors install
 ```
+
+#Examples
+
+Let's say we have a Category and a Message  :
+
+```php
+$category = new Category();
+$category->setSlug('my-category');
+
+$message = new Message();
+$message->setSlug('my-message');
+$message->setCategory($category);
+```
+
+And the corresponding list route :
+
+```yaml
+message_show:
+    pattern:   /message/{category.slug}/{slug}
+```
+
+## Create the corresponding route
+
+```php
+$router->generate('message_show', $message);
+```
+
+```twig
+{{ path('message_show', message) }}
+```
+
+Will output: ``/message/my-category/my-message``
+
+## Override parameters
+```php
+$router->generate('message_show', array('_object' => $message, 'slug' => 'my-custom-slug'));
+```
+
+```twig
+{{ path('message_show', {'_object': message, 'slug': 'my-custom-slug'}) }}
+```
+
+Will output: ``/message/my-category/my-custom-slug``
