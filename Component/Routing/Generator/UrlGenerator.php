@@ -2,13 +2,13 @@
 
 namespace M4nu\ObjectRouteBundle\Component\Routing\Generator;
 
-use Symfony\Component\Form\Util\PropertyPath;
-use Symfony\Component\Form\Exception\FormException;
+use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
+use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\Routing\Generator\UrlGenerator as BaseUrlGenerator;
 
 class UrlGenerator extends BaseUrlGenerator
 {
-    protected function doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $absolute)
+    protected function doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $referenceType, $hostTokens)
     {
         if (is_object($parameters)) {
             $object     = $parameters;
@@ -28,15 +28,15 @@ class UrlGenerator extends BaseUrlGenerator
         if (isset($object)) {
             $remainingParams = array_diff($variables, array_keys($parameters));
 
-            foreach ($remainingParams as $name) {
-                $path = new PropertyPath($name);
+            $propertyAccessor = PropertyAccess::createPropertyAccessor();
 
+            foreach ($remainingParams as $name) {
                 try {
-                    $parameters[$name] = $path->getValue($object);
-                } catch (FormException $e) {}
+                    $parameters[$name] = $propertyAccessor->getValue($object, $name);
+                } catch (NoSuchPropertyException $e) {}
             }
         }
 
-        return parent::doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $absolute);
+        return parent::doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $referenceType, $hostTokens);
     }
 }
